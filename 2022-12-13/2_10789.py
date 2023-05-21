@@ -1,30 +1,29 @@
-def count_primes(s):
-    # create a dictionary to store the character frequency
-    freq_dict = {}
-    for char in s:
-        freq_dict[char] = freq_dict.get(char, 0) + 1
+def isPrime(num):
+    if num == 1:
+        return False
+    max = num // 2
+    for i in range(2, max + 1):
+        if num % i == 0:
+            return False
+    return True
 
-    # find the prime numbers among the frequencies
-    primes = ""
-    for char, freq in freq_dict.items():
-        # check if freq is a prime number
-        is_prime = True
-        if freq < 2:
-            is_prime = False
-        for i in range(2, int(freq**0.5) + 1):
-            if freq % i == 0:
-                is_prime = False
-                break
-        if is_prime:
-            primes = primes + char
-    if len(primes) != 0:
-        return ''.join(sorted(primes))
+
+times = int(input())
+for i in range(times):
+    l = input()
+    dic = {}
+    for char in l:
+        if char not in dic:
+            dic[char] = 1
+        else:
+            dic[char] += 1
+    ans = ""
+    for char in dic:
+        num = dic[char]
+        if isPrime(num) == True:
+            ans += char
+    if ans == "":
+        print(f"Case {i+1}: empty")
     else:
-        return "empty"
-
-time = int(input())
-for i in range(time):
-    s = input()
-    print("Case %d: "% (i+1), end = "")
-    print(count_primes(s))
-    
+        text = "".join(sorted(ans))  # ASCII
+        print(f"Case {i+1}: {text}")
